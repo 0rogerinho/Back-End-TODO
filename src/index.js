@@ -1,67 +1,20 @@
-const express = require('express');
-const { v4: uuidv4 } = require('uuid');
+import 'dotenv/config';
+import mongoose from 'mongoose';
+import express from 'express';
+import { taskCreate } from './routes/Task.routes.js';
+
 const app = express();
-const PORT = 3000;
 
 app.use(express.json());
 
-/**
- * id
- * title
- * state
- */
-const tasks = [];
+app.use('/task', taskCreate);
 
-function existingTask(req, res, next) {
-  const { title } = req.headers;
-
-  const taskExists = tasks.find((task) => task.title === title);
-
-  if (!taskExists) {
-    return res.status(400).json({ error: 'Essa task não existe fiote' });
-  }
-
-  req.taskExists = taskExists;
-
-  return next();
-}
-
-app.post('/tasks', (req, res) => {
-  const { title, state } = req.body;
-
-  const checkTaksExists = tasks.some((task) => task.title === title);
-
-  if (checkTaksExists) {
-    return res.status(400).json({ error: 'task ja existente' });
-  }
-
-  tasks.push({ id: uuidv4(), title, state });
-
-  return res.status(201).send();
-});
-
-app.get('/tasks', existingTask, (req, res) => {
-  const { taskExists } = req;
-  return res.status(201).json(taskExists);
-});
-
-app.put('/tasks', existingTask, (req, res) => {
-  const { state } = req.body;
-  const { taskExists } = req;
-
-  taskExists.state = state;
-
-  return res.status(201).send();
-});
-
-app.delete('/tasks', existingTask, (req, res) => {
-  const { existingTask } = req;
-
-  tasks.splice(existingTask, 1);
-
-  return res.status(201).send();
-});
-
-app.listen(PORT, () => {
-  console.log(`Rodando em http://localhost:${PORT}`);
-});
+mongoose
+  .connect(
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@todo.apxxgxw.mongodb.net/?retryWrites=true&w=majority`,
+  )
+  .then(() => {
+    console.log('conectamos ao mongoDB');
+    app.listen(3000);
+  })
+  .catch((err) => console.log(err));
