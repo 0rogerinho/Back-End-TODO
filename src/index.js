@@ -3,8 +3,11 @@ import mongoose from 'mongoose';
 import express from 'express';
 import { taskCreate } from './routes/TaskRoutes.js';
 import { userRoutes } from './routes/UserRoutes.js';
+import cors from 'cors';
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 
