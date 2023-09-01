@@ -16,9 +16,9 @@ class UserService {
 
   async user({ email, password }) {
     try {
-      const user = await User.findOne({ email, password });
+      const user = await User.exists({ email, password });
 
-      if (user === null) throw new Error('user not found');
+      if (!user) throw new Error('user not found');
 
       return user;
     } catch (error) {

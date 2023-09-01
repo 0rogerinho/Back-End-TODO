@@ -7,6 +7,6 @@ const userController = new UserController();
 
 userRoutes.post('/', (req, res) => userController.postCreateUser(req, res));
 
-userRoutes.get('/login', (req, res) => userController.getUser(req, res));
+userRoutes.post('/login', (req, res) => userController.postUser(req, res));
 
 userRoutes.get('/', (req, res) => userController.getAllUser(req, res));

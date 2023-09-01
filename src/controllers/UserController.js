@@ -15,8 +15,8 @@ class UserController {
     }
   }
 
-  async getUser(req, res) {
-    const { email, password } = req.query;
+  async postUser(req, res) {
+    const { email, password } = req.body;
     try {
       const user = await this.userService.user({ email, password });
       return res.status(200).json(user);
