@@ -43,7 +43,7 @@ export class TaskService {
 
   async deleteTask({ user_id, task_id }) {
     try {
-      const user = await User.findOne({ user_id }, { _id: task_id }).exec();
+      const user = await User.exists({ user_id }, { _id: task_id }).exec();
 
       if (!user) throw new Error('User not found');
 
