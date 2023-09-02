@@ -1,3 +1,4 @@
+import { hash } from 'bcrypt';
 import { UserService } from '../services/UserService.js';
 
 class UserController {
@@ -6,9 +7,9 @@ class UserController {
   }
   async postCreateUser(req, res) {
     const { username, email, password } = req.body;
-
+    const bcrypt_pass = await hash(password, 10);
     try {
-      await this.userService.create({ username, email, password });
+      await this.userService.create(username, email, bcrypt_pass);
       return res.status(201).json({ message: 'User successfully created' });
     } catch (error) {
       return res.status(400).json(error.message);
