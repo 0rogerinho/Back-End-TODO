@@ -1,18 +1,10 @@
 import { User } from '../models/UserModel.js';
 import { userValidation } from '../validation/UserValidation.js';
+import { userCreateValidation } from '../validation/UserCreateValidation.js';
 
 class UserService {
   async create(username, email, password) {
-    try {
-      if (await User.findOne({ email }).exec())
-        throw new Error('email already exist');
-
-      await User.create({ username, email, password });
-    } catch (error) {
-      console.log(error);
-
-      throw new Error(error);
-    }
+    return userCreateValidation(username, email, password);
   }
 
   async user({ email, password }) {
