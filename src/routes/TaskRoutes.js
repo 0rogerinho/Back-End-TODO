@@ -9,6 +9,6 @@ taskCreate.post('/', (req, res) => taskController.postTask(req, res));
 
 taskCreate.get('/', (req, res) => taskController.getTasks(req, res));
 
-taskCreate.patch('/', (req, res) => taskController.patchTask(req, res));
+taskCreate.patch('/:user_id', (req, res) => taskController.patchTask(req, res));
 
 taskCreate.delete('/', (req, res) => taskController.deleteTask(req, res));

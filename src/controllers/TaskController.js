@@ -28,8 +28,8 @@ export class TaskController {
   }
 
   async patchTask(req, res) {
-    const { user_id, task_id } = req.query;
-    const { state } = req.body;
+    const { user_id } = req.params;
+    const { task_id, state } = req.body;
 
     try {
       await this.taskService.updateTask({ user_id, task_id, state });
