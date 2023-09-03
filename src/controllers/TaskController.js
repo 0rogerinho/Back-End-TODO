@@ -40,7 +40,8 @@ export class TaskController {
   }
 
   async deleteTask(req, res) {
-    const { user_id, task_id } = req.query;
+    const { user_id } = req.params;
+    const { task_id } = req.body;
 
     try {
       await this.taskService.deleteTask({ user_id, task_id });
