@@ -11,4 +11,6 @@ taskCreate.get('/', (req, res) => taskController.getTasks(req, res));
 
 taskCreate.patch('/:user_id', (req, res) => taskController.patchTask(req, res));
 
-taskCreate.delete('/', (req, res) => taskController.deleteTask(req, res));
+taskCreate.delete('/:user_id', (req, res) =>
+  taskController.deleteTask(req, res),
+);
