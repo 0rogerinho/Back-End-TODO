@@ -6,8 +6,7 @@ export class TaskController {
   }
 
   async postTask(req, res) {
-    const { id } = req.query;
-    const { title } = req.body;
+    const { id, title } = req.body;
 
     try {
       await this.taskService.create({ user_id: id, title });
