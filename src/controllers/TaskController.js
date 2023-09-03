@@ -6,10 +6,10 @@ export class TaskController {
   }
 
   async postTask(req, res) {
-    const { id, title } = req.body;
+    const { _id, title } = req.body;
 
     try {
-      await this.taskService.create({ user_id: id, title });
+      await this.taskService.create({ user_id: _id, title });
       return res.status(201).json({ message: 'Task created' });
     } catch (error) {
       return res.status(400).json(error.message);
