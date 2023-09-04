@@ -9,8 +9,8 @@ export class TaskController {
     const { id, title } = req.body;
 
     try {
-      await this.taskService.create({ user_id: id, title });
-      return res.status(201).json({ message: 'Task created' });
+      const newTask = await this.taskService.create({ user_id: id, title });
+      return res.status(201).json(newTask);
     } catch (error) {
       return res.status(400).json(error.message);
     }
