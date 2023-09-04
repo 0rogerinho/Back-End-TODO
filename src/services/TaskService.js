@@ -4,11 +4,13 @@ import { User } from '../models/UserModel.js';
 export class TaskService {
   async create({ user_id, title }) {
     try {
-      const user = await User.findById(user_id).exec();
+      const user = await User.findById({ _id: user_id }).exec();
 
       if (!user) throw new Error('User not found');
 
-      await Task.create({ user_id: user_id, title });
+      const newTask = await Task.create({ user_id: user_id, title });
+
+      return newTask;
     } catch (error) {
       console.log(error);
       throw error;
